@@ -5,4 +5,6 @@ set(CMAKE_CXX_STANDARD 17)
 
 include_directories(creational/)
 
-add_executable(DesignPatternsCpp main.cpp creational/singleton.h)
+add_executable(DesignPatternsCpp main.cpp
+        creational/factory.h
+        creational/singleton.h)
