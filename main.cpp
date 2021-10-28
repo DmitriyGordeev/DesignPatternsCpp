@@ -14,10 +14,14 @@ int main() {
     auto box = Factory::create(FigType::BOX, 1, 1);
 
     /* builder */
-    NestedObject1* n1 = new NestedObject1();
-    NestedObject2* n2 = new NestedObject2();
-    std::unique_ptr<SomeComplexObject> instance1 = SomeComplexObject::buildType1(n1, n2);
+    Person::Builder* personBuilder = Person::getBuilder();
+    Person* p = personBuilder->setId(11)
+                ->setFirstName("FirstName")
+                ->setSecondName("SecondName")
+                ->setEmail("Email")
+                ->build();
 
+    delete personBuilder;
 
     return 0;
 }

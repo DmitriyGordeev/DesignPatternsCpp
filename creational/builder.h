@@ -1,68 +1,60 @@
 #ifndef DESIGNPATTERNSCPP_BUILDER_H
 #define DESIGNPATTERNSCPP_BUILDER_H
 
+#include <string>
 #include <memory>
 
-class NestedObject1 {
-public:
-    NestedObject1(): _c('0'), _f(12.2f) {}
 
-private:
-    char _c;
-    float _f;
-
-};
-
-class NestedObject2 {
-public:
-    NestedObject2(): _x(0), _y(12), _z(100.1f) {}
-
-private:
-    int _x;
-    int _y;
-    float _z;
-};
-
-class SomeComplexObject {
+class Person {
 public:
 
-    SomeComplexObject() {}
+    class Builder {
+    public:
+        explicit Builder(Person* person) : _person(person) {}
 
-    void setC(char c) { _c = c; }
-    void setI(int i) { _i = i; }
-    void setF(float f) { _f = f; }
-    void setNestedObject1(NestedObject1* n1) { _n1 = n1; }
-    void setNestedObject2(NestedObject2* n2) { _n2 = n2; }
-    void setCPtr(char* c_ptr) { _c_ptr = c_ptr; }
+        Builder* setId(int id) {
+            _person->_id = id;
+            return this;
+        }
 
-    static std::unique_ptr<SomeComplexObject> buildType1(NestedObject1* n1, NestedObject2* n2) {
-        std::unique_ptr<SomeComplexObject> out = std::make_unique<SomeComplexObject>();
-        out->setC('A');
-        out->setI(17);
-        out->setNestedObject1(n1);
-        out->setNestedObject2(n2);
-        out->setCPtr("Hello");
-        return out;
+        Builder* setFirstName(const std::string& firstName) {
+            _person->_firstName = firstName;
+            return this;
+        }
+
+        Builder* setSecondName(const std::string& secondName) {
+            _person->_secondName = secondName;
+            return this;
+        }
+
+        Builder* setEmail(const std::string& email) {
+            _person->_email = email;
+            return this;
+        }
+
+        Person* build() {
+            return _person;
+        }
+
+    private:
+        Person* _person;
+    };
+
+
+    static Builder* getBuilder() {
+        Person* p = new Person();
+        Builder* b = new Builder(p);
+        return b;
     }
 
-    static std::unique_ptr<SomeComplexObject> buildType2(NestedObject1* n1, NestedObject2* n2) {
-        std::unique_ptr<SomeComplexObject> out = std::make_unique<SomeComplexObject>();
-        out->setC('B');
-        out->setI(19);
-        out->setNestedObject1(n1);
-        out->setNestedObject2(n2);
-        out->setCPtr("Hello");
-        return out;
-    }
 
 private:
-    char _c;
-    int _i;
-    float _f;
-    NestedObject1* _n1;
-    NestedObject2* _n2;
-    char* _c_ptr;
+    int _id;
+    std::string _firstName;
+    std::string _secondName;
+    std::string _email;
 
+    Person() = default;
 };
 
 #endif //DESIGNPATTERNSCPP_BUILDER_H
