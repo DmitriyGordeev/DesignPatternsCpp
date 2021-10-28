@@ -8,13 +8,19 @@
 class Person {
 public:
 
+    Person() = default;
+
     class Builder {
     public:
-        explicit Builder(Person* person) : _person(person) {}
+        explicit Builder(std::unique_ptr<Person> person) : _person(std::move(person)) {}
 
         Builder* setId(int id) {
             _person->_id = id;
             return this;
+        }
+
+        ~Builder() {
+            _person = nullptr;
         }
 
         Builder* setFirstName(const std::string& firstName) {
@@ -32,18 +38,18 @@ public:
             return this;
         }
 
-        Person* build() {
-            return _person;
+        std::unique_ptr<Person> build() {
+            return std::move(_person);  // Todo: ?
         }
 
     private:
-        Person* _person;
+        std::unique_ptr<Person> _person;
     };
 
 
     static Builder* getBuilder() {
-        Person* p = new Person();
-        Builder* b = new Builder(p);
+        std::unique_ptr<Person> p = std::make_unique<Person>();
+        Builder* b = new Builder(std::move(p));
         return b;
     }
 
@@ -53,8 +59,6 @@ private:
     std::string _firstName;
     std::string _secondName;
     std::string _email;
-
-    Person() = default;
 };
 
 #endif //DESIGNPATTERNSCPP_BUILDER_H

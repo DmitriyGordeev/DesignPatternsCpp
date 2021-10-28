@@ -14,12 +14,12 @@ int main() {
     auto box = Factory::create(FigType::BOX, 1, 1);
 
     /* builder */
-    Person::Builder* personBuilder = Person::getBuilder();
-    Person* p = personBuilder->setId(11)
-                ->setFirstName("FirstName")
-                ->setSecondName("SecondName")
-                ->setEmail("Email")
-                ->build();
+    Person::Builder *personBuilder = Person::getBuilder();
+    std::unique_ptr<Person> p = personBuilder->setId(11)
+            ->setFirstName("FirstName")
+            ->setSecondName("SecondName")
+            ->setEmail("Email")
+            ->build();
 
     delete personBuilder;
 
