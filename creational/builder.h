@@ -39,7 +39,7 @@ public:
         }
 
         std::unique_ptr<Person> build() {
-            return std::move(_person);  // Todo: ?
+            return std::move(_person);
         }
 
     private:
@@ -55,6 +55,7 @@ public:
 
 
 private:
+    // it's assumed we have many properties here
     int _id;
     std::string _firstName;
     std::string _secondName;
