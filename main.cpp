@@ -3,6 +3,7 @@
 #include "factory.h"
 #include "builder.h"
 #include "adapter.h"
+#include "decorator.h"
 
 
 int main() {
@@ -28,18 +29,28 @@ int main() {
 
 
     /* adapter example */
+    std::cout << "--- adapter ---" << std::endl;
     CppFunc* cppFunc = new CppFunc();
-    exampleUsageCode(cppFunc);
+    adapterUsageExample(cppFunc);
 
     PyFunc* pyFunc = new PyFunc();
     std::cout << pyFunc->getFuncDef() << std::endl;
     CppFunc* adapter = new PyToCppAdapter(pyFunc);
-    exampleUsageCode(adapter);
+    adapterUsageExample(adapter);
 
     delete cppFunc;
     delete pyFunc;
     delete adapter;
 
+
+    /* decorator example */
+    std::cout << "--- decorator ---" << std::endl;
+    Object* obj = new Object(10, "Name");
+    Decorator* decorator = new Decorator(obj);
+    decoratorUsageExample(obj);
+    decoratorUsageExample(decorator);
+    delete obj;
+    delete decorator;
 
 
 

@@ -47,7 +47,7 @@ private:
 };
 
 
-void exampleUsageCode(CppFunc* cppFunc) {
+void adapterUsageExample(CppFunc* cppFunc) {
     std::cout << cppFunc->getFuncDefinition() << std::endl;
 }
 

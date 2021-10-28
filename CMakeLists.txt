@@ -9,4 +9,5 @@ include_directories(structural/)
 add_executable(DesignPatternsCpp main.cpp
         creational/factory.h
         creational/singleton.h
-        structural/adapter.h)
+        structural/adapter.h
+        structural/decorator.h)
