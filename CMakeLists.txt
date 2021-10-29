@@ -10,4 +10,5 @@ add_executable(DesignPatternsCpp main.cpp
         creational/factory.h
         creational/singleton.h
         structural/adapter.h
-        structural/decorator.h)
+        structural/decorator.h
+        structural/proxy.h)

@@ -4,6 +4,7 @@
 #include "builder.h"
 #include "adapter.h"
 #include "decorator.h"
+#include "proxy.h"
 
 
 int main() {
@@ -52,6 +53,13 @@ int main() {
     delete obj;
     delete decorator;
 
+
+    /* proxy example */
+    proxy::IHeavyObject* heavyObject = new proxy::SomeHeavyObject(10);
+    heavyObject->init();
+
+    proxy::IHeavyObject* proxyHeavyObject = new proxy::ProxyHeavyObject(10);
+    proxyHeavyObject->init();
 
 
     return 0;
