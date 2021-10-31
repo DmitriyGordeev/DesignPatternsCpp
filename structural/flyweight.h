@@ -101,7 +101,7 @@ namespace flyweight {
                 const std::string& plates, const std::string& owner,
                 const std::string& brand, const std::string& model, const std::string& color) {
 
-        std::cout << "adding a car" << std::endl;
+        std::cout << "addCar()" << std::endl;
         const Flyweight& flyweight = factory.get({brand, model, color});
         flyweight.doSomething({owner, plates});
     }

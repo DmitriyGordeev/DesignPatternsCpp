@@ -5,11 +5,18 @@ set(CMAKE_CXX_STANDARD 17)
 
 include_directories(creational/)
 include_directories(structural/)
+include_directories(behavioral/)
+
+file(GLOB CREATIONAL_SRC
+        creational/*.h)
+
+file(GLOB STRUCTURAL_SRC
+        structural/*.h)
+
+file(GLOB BEHAVIORAL_SRC
+        behavioral/*.h)
 
 add_executable(DesignPatternsCpp main.cpp
-        creational/factory.h
-        creational/singleton.h
-        structural/adapter.h
-        structural/decorator.h
-        structural/proxy.h
-        structural/flyweight.h)
+        ${CREATIONAL_SRC}
+        ${STRUCTURAL_SRC}
+        ${BEHAVIORAL_SRC})

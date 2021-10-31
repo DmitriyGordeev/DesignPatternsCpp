@@ -6,6 +6,7 @@
 #include "decorator.h"
 #include "proxy.h"
 #include "flyweight.h"
+#include "chain_of_responsibility.h"
 
 
 int main() {
@@ -62,17 +63,30 @@ int main() {
 
 
     /* flyweight */
-    std::cout << "--- flyweight ---" << std::endl;
+    std::cout << std::endl << "--- flyweight ---" << std::endl;
     flyweight::FlyweightFactory* ff = new flyweight::FlyweightFactory({
             {"Chevrolet", "Camaro", "black"},
             {"Aston Martin", "DB9", "silver"},
             {"BMW", "x5", "red"}});
 
     ff->listFlyweights();
-
     flyweight::addCar(*ff, "D928", "James Bond", "Aston Martin", "DB9", "silver");
-    flyweight::addCar(*ff, "D928", "Lara Croft", "Mazda", "X", "red");
+    flyweight::addCar(*ff, "A672", "Lara Croft", "Mazda", "X", "red");
     delete ff;
+
+
+    /* chain of responsibility */
+    std::cout << std::endl << "--- chain of responsibility ---" << std::endl;
+    chain_of_responsibility::BusHandler* bus = new chain_of_responsibility::BusHandler;
+    chain_of_responsibility::AirplaneHandler* airplane = new chain_of_responsibility::AirplaneHandler;
+    chain_of_responsibility::ShipHandler* ship = new chain_of_responsibility::ShipHandler;
+
+    // constructing the chain:
+    bus->setNext(airplane)->setNext(ship);
+    // usage
+    chain_of_responsibility::usageExample(*bus);
+
+
 
     return 0;
 }
