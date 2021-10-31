@@ -5,6 +5,7 @@
 #include "adapter.h"
 #include "decorator.h"
 #include "proxy.h"
+#include "flyweight.h"
 
 
 int main() {
@@ -15,13 +16,13 @@ int main() {
 
 
     /* factory example */
-    auto circle = Factory::create(FigType::CIRCLE, 1, 1);
-    auto box = Factory::create(FigType::BOX, 1, 1);
+    auto circle = factory::Factory::create(factory::FigType::CIRCLE, 1, 1);
+    auto box = factory::Factory::create(factory::FigType::BOX, 1, 1);
 
 
     /* builder example */
-    Person::Builder *personBuilder = Person::getBuilder();
-    std::unique_ptr<Person> p = personBuilder->setId(11)
+    builder::Person::Builder *personBuilder = builder::Person::getBuilder();
+    std::unique_ptr<builder::Person> p = personBuilder->setId(11)
             ->setFirstName("FirstName")
             ->setSecondName("SecondName")
             ->setEmail("Email")
@@ -31,14 +32,13 @@ int main() {
 
     /* adapter example */
     std::cout << "--- adapter ---" << std::endl;
-    CppFunc* cppFunc = new CppFunc();
-    adapterUsageExample(cppFunc);
+    adapter::CppFunc* cppFunc = new adapter::CppFunc();
+    adapter::adapterUsageExample(cppFunc);
 
-    PyFunc* pyFunc = new PyFunc();
+    adapter::PyFunc* pyFunc = new adapter::PyFunc();
     std::cout << pyFunc->getFuncDef() << std::endl;
-    CppFunc* adapter = new PyToCppAdapter(pyFunc);
-    adapterUsageExample(adapter);
-
+    adapter::CppFunc* adapter = new adapter::PyToCppAdapter(pyFunc);
+    adapter::adapterUsageExample(adapter);
     delete cppFunc;
     delete pyFunc;
     delete adapter;
@@ -46,10 +46,10 @@ int main() {
 
     /* decorator example */
     std::cout << "--- decorator ---" << std::endl;
-    Object* obj = new Object(10, "Name");
-    Decorator* decorator = new Decorator(obj);
-    decoratorUsageExample(obj);
-    decoratorUsageExample(decorator);
+    decorator::Object* obj = new decorator::Object(10, "Name");
+    decorator::Decorator* decorator = new decorator::Decorator(obj);
+    decorator::decoratorUsageExample(obj);
+    decorator::decoratorUsageExample(decorator);
     delete obj;
     delete decorator;
 
@@ -57,10 +57,22 @@ int main() {
     /* proxy example */
     proxy::IHeavyObject* heavyObject = new proxy::SomeHeavyObject(10);
     heavyObject->init();
-
     proxy::IHeavyObject* proxyHeavyObject = new proxy::ProxyHeavyObject(10);
     proxyHeavyObject->init();
 
+
+    /* flyweight */
+    std::cout << "--- flyweight ---" << std::endl;
+    flyweight::FlyweightFactory* ff = new flyweight::FlyweightFactory({
+            {"Chevrolet", "Camaro", "black"},
+            {"Aston Martin", "DB9", "silver"},
+            {"BMW", "x5", "red"}});
+
+    ff->listFlyweights();
+
+    flyweight::addCar(*ff, "D928", "James Bond", "Aston Martin", "DB9", "silver");
+    flyweight::addCar(*ff, "D928", "Lara Croft", "Mazda", "X", "red");
+    delete ff;
 
     return 0;
 }

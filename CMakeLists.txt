@@ -11,4 +11,5 @@ add_executable(DesignPatternsCpp main.cpp
         creational/singleton.h
         structural/adapter.h
         structural/decorator.h
-        structural/proxy.h)
+        structural/proxy.h
+        structural/flyweight.h)
