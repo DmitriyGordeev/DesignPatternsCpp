@@ -8,6 +8,7 @@
 #include "flyweight.h"
 #include "chain_of_responsibility.h"
 #include "controller.h"
+#include "observer.h"
 
 
 int main() {
@@ -101,6 +102,21 @@ int main() {
     delete cA;
     delete cB;
     delete rc;
+
+
+    /* observer */
+    std::cout << std::endl << "--- observer ---" << std::endl;
+    observer::Publisher publisher;
+    observer::Observer o1(publisher);
+    observer::Observer o2(publisher);
+    observer::Observer o3(publisher);
+    observer::Observer o4(publisher);
+
+    publisher.clientCodeExample("event A");
+    observer::Observer o5(publisher);
+    o1.unsubscribe();
+    publisher.clientCodeExample("event B");
+
 
     return 0;
 }
