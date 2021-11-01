@@ -47,7 +47,6 @@ namespace observer {
         }
 
     private:
-        // TODO: smart ptr ?
         std::list<IObserver*> _observers;
         std::string _event;
     };
@@ -62,9 +61,7 @@ namespace observer {
             std::cout << "Observer{" << _id << "} is now observing the publisher" << std::endl;
         }
 
-        ~Observer() {
-            std::cout << "Observer{" << _id << "} destroyed" << std::endl;
-        }
+        ~Observer() {}
 
         void update(const std::string& event) override {
             _publisherEvent = event;

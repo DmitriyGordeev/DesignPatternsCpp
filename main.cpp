@@ -9,6 +9,7 @@
 #include "chain_of_responsibility.h"
 #include "controller.h"
 #include "observer.h"
+#include "state.h"
 
 
 int main() {
@@ -117,6 +118,13 @@ int main() {
     o1.unsubscribe();
     publisher.clientCodeExample("event B");
 
+
+
+    /* state */
+    std::cout << std::endl << "--- state ---" << std::endl;
+    state::Context context(new state::RealStateA);
+    context.request1();
+    context.request2();
 
     return 0;
 }
