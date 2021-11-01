@@ -7,6 +7,7 @@
 #include "proxy.h"
 #include "flyweight.h"
 #include "chain_of_responsibility.h"
+#include "controller.h"
 
 
 int main() {
@@ -87,6 +88,19 @@ int main() {
     chain_of_responsibility::usageExample(*bus);
 
 
+
+    /* controller example: */
+    std::cout << std::endl << "--- controller ---" << std::endl;
+    controller::ComponentA* cA = new controller::ComponentA;
+    controller::ComponentB* cB = new controller::ComponentB;
+    controller::RealController* rc = new controller::RealController(cA, cB);
+
+    cA->action2();
+    std::cout << std::endl;
+    cB->action1();
+    delete cA;
+    delete cB;
+    delete rc;
 
     return 0;
 }
