@@ -10,6 +10,7 @@
 #include "controller.h"
 #include "observer.h"
 #include "state.h"
+#include "visitor.h"
 
 
 int main() {
@@ -125,6 +126,27 @@ int main() {
     state::Context context(new state::RealStateA);
     context.request1();
     context.request2();
+
+
+
+    /* visitor */
+    std::cout << std::endl << "--- visitor ---" << std::endl;
+    visitor::XMLVisitorExample visitor;
+
+    // simple example
+    std::vector<visitor::IObject*> objects;
+    objects.emplace_back(new visitor::ObjectA);
+    objects.emplace_back(new visitor::ObjectB("Red", "Color"));
+    objects.emplace_back(new visitor::ObjectB("Large", "Size"));
+    for (auto e : objects) {
+        std::cout << e->accept(&visitor) << std::endl;
+    }
+
+    for (auto e : objects)
+        delete e;
+
+
+
 
     return 0;
 }
